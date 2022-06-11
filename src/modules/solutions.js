@@ -1,13 +1,6 @@
 // 상태
 const initialState = {
-  // turn: 0,
-  // currentGuess: '',
-  // guesses: [],
-  // history: [],
-  // isCorrect: false,
-  loading: false,
-  data: null,
-  error: null,
+  solutions: { loading: false, data: null, error: null },
 };
 
 // action
@@ -33,21 +26,27 @@ export const solutions = (state = initialState, action) => {
   switch (action.type) {
     case GET_SOLUTIONS_SUCCESS:
       return {
-        loading: false,
-        data: action.data,
-        error: null,
+        solutions: {
+          loading: false,
+          data: action.data,
+          error: null,
+        },
       };
     case GET_SOLUTIONS_LOADING:
       return {
-        loading: true,
-        data: null,
-        error: null,
+        solutions: {
+          loading: true,
+          data: null,
+          error: null,
+        },
       };
     case GET_SOLUTIONS_ERROR:
       return {
-        loading: false,
-        data: null,
-        error: action.e,
+        solutions: {
+          loading: false,
+          data: null,
+          error: action.e,
+        },
       };
     default:
       return state;
