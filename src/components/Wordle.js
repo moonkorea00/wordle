@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const Wordle = solution => {
+const Wordle = ({randomSolution}) => {
   return (
     <Wrapper>
-      <div>word</div>
+      <div>word: {randomSolution}</div>
     </Wrapper>
   );
 };
