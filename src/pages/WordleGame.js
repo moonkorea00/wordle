@@ -49,8 +49,8 @@ const WordleGame = () => {
     <>
       <span>!!!!!!</span>
       <WordleGameWrapper>
-        this is current guess: {currentGuess}---
-        <Wordle randomSolution={randomSolution} />
+        solution: {randomSolution}
+        <Wordle currentGuess={currentGuess} />
         {alertType && (
           <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
         )}
@@ -60,6 +60,6 @@ const WordleGame = () => {
 };
 
 const WordleGameWrapper = styled.main`
-  ${({ theme }) => theme.common.flexCenter}
+  ${({ theme }) => theme.common.flexColumn}
 `;
 export default WordleGame;

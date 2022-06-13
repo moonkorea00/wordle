@@ -14,6 +14,12 @@ const theme = {
       justify-content: center;
       align-items: center;
     `,
+    flexColumn: `
+    display: flex;
+    flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `,
   },
   color: {
     black: '#000000',

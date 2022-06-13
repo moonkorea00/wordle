@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
-const Wordle = ({randomSolution}) => {
+const Wordle = ({currentGuess}) => {
+  console.log(currentGuess)
   return (
     <Wrapper>
-      <div>word: {randomSolution}</div>
+      <div>current guess: {currentGuess}</div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  ${({ theme }) => theme.common.flexCenter}
+  ${({ theme }) => theme.common.flexColumn}
 `;
 export default Wordle;
