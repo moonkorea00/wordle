@@ -1,8 +1,16 @@
 // state
+const createGuessArr = () => {
+  return [...Array(6)].map(() => {
+    return [...Array(5)].map(() => {
+      return { ...Object(5) };
+    });
+  });
+};
 const initialState = {
   turn: 0,
   currentGuess: '',
-  guesses: [...Array(6)],
+  // guesses: [...Array(6)],
+  guesses: createGuessArr(),
   submittedGuess: [],
   alertType: '',
 };
@@ -79,7 +87,6 @@ export const handleKeyup =
 
 // reducer
 export const gameData = (state = initialState, action) => {
-  
   const formatGuess = () => {
     const formattedGuess = [state.currentGuess]
       .join()

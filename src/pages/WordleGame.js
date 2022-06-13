@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { fetchSolutions } from '../modules/solutions';
 import { handleKeyup } from '../modules/gameData';
 import { resetGame } from '../modules/gameData';
-import Wordle from '../components/Wordle';
+import Wordle from '../components/Word';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -19,8 +19,9 @@ const WordleGame = () => {
     }),
     shallowEqual
   );
-  const { currentGuess } = useSelector(state => ({
+  const { currentGuess, guesses } = useSelector(state => ({
     currentGuess: state.gameData.currentGuess,
+    guesses: state.gameData.guesses,
   }));
   // 리덕스에서 상태의 변화가 서로에게 미치는 영향...
   // 분리해서 추출해야되나?
@@ -50,7 +51,7 @@ const WordleGame = () => {
       <span>!!!!!!</span>
       <WordleGameWrapper>
         solution: {randomSolution}
-        <Wordle currentGuess={currentGuess} />
+        <Wordle guesses={guesses} />
         {alertType && (
           <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
         )}
