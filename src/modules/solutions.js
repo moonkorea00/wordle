@@ -1,6 +1,7 @@
 // 상태
 const initialState = {
   solutions: { loading: false, data: null, error: null },
+  solution: null,
 };
 
 // action
@@ -31,9 +32,12 @@ export const solutions = (state = initialState, action) => {
           data: action.data,
           error: null,
         },
+        solution:
+          action?.data[Math.floor(Math.random() * action?.data.length)].word,
       };
     case GET_SOLUTIONS_LOADING:
       return {
+        ...state,
         solutions: {
           loading: true,
           data: null,
@@ -42,6 +46,7 @@ export const solutions = (state = initialState, action) => {
       };
     case GET_SOLUTIONS_ERROR:
       return {
+        ...state,
         solutions: {
           loading: false,
           data: null,

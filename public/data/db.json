@@ -1,19 +1,19 @@
 {
   "solutions": [
-    { "id": 1, "word": "ninja" },
-    { "id": 2, "word": "spade" },
-    { "id": 3, "word": "pools" },
+    { "id": 1, "word": "hello" },
+    { "id": 2, "word": "apple" },
+    { "id": 3, "word": "spade" },
     { "id": 4, "word": "drive" },
-    { "id": 5, "word": "relax" },
-    { "id": 6, "word": "times" },
-    { "id": 7, "word": "train" },
-    { "id": 8, "word": "cores" },
-    { "id": 9, "word": "pours" },
-    { "id": 10, "word": "blame" },
-    { "id": 11, "word": "banks" },
-    { "id": 12, "word": "phone" },
-    { "id": 13, "word": "bling" },
-    { "id": 14, "word": "coins" },
-    { "id": 15, "word": "hello" }
+    { "id": 5, "word": "train" },
+    { "id": 6, "word": "ninja" },
+    { "id": 7, "word": "drain" },
+    { "id": 8, "word": "funny" },
+    { "id": 9, "word": "title" },
+    { "id": 10, "word": "blink" },
+    { "id": 11, "word": "react" },
+    { "id": 12, "word": "redux" },
+    { "id": 13, "word": "comic" },
+    { "id": 14, "word": "gamer" },
+    { "id": 15, "word": "grain" }
   ]
 }
