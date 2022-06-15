@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-
+import logo from '.././logo.svg';
 const Nav = () => {
   return (
     <NavWrapper>
-      <Title>Wordle</Title>
+      <Title> 단어 맞춰보아</Title>
+      <ReactLogo src={logo} alt="" />
     </NavWrapper>
   );
 };
@@ -16,4 +17,20 @@ const NavWrapper = styled.main`
   border-bottom: 1px solid lightgrey;
 `;
 const Title = styled.h1``;
+
+const ReactLogo = styled.img`
+  height: 6vh;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: App-logo-spin infinite 8s linear;
+  }
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 export default Nav;

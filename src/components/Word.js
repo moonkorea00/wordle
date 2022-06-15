@@ -1,21 +1,54 @@
 import styled from 'styled-components';
 
-const Word = ({ guesses }) => {
-  console.log(guesses);
+const Word = ({ guesses, currentGuess, turn }) => {
+  console.log(currentGuess);
+  console.log(turn);
+
   return (
     <Wrapper>
-      {guesses?.map(el => {
-        return el.map((li, idx) => {
+      {guesses?.map((el, idx) => {
+        if (turn === idx) {
+          const currentGuessToArr = [...currentGuess];
           return (
-            <SingleWord key={idx} bg={li.color}>
-              {li.key}
-            </SingleWord>
+            <Wrapper key={idx}>
+              {currentGuessToArr?.map((el, idx) => {
+                return <SingleWord key={idx}>{el}</SingleWord>;
+              })}
+              {[...Array(5 - currentGuessToArr.length)].map((el, idx) => {
+                return <SingleWord key={idx}></SingleWord>;
+              })}
+            </Wrapper>
           );
+        }
+        return el.map((el, idx) => {
+          return <SingleWord key={idx} bg={el.color}>{el.key}</SingleWord>;
         });
       })}
+      <ModalWrapper>
+        <Modal>dd</Modal>
+      </ModalWrapper>
     </Wrapper>
   );
 };
+const ModalWrapper = styled.main`
+position: absolute;
+width: 100vw;
+height: 100vh;
+top:0;
+left: 0;
+background-color: grey;
+opacity: 0.2;
+`;
+
+const Modal = styled.div`
+  position: relative;
+  margin: 35vh 35vw;
+  width: 30vw;
+  height: 30vh;
+  background-color: white;
+  border: 1px solid black;
+  z-index: 10;
+`;
 
 const Wrapper = styled.section`
   ${({ theme }) => theme.common.flexCenter}

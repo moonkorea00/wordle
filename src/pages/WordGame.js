@@ -19,10 +19,13 @@ const WordleGame = () => {
     }),
     shallowEqual
   );
-  const { currentGuess, guesses } = useSelector(state => ({
+  const { turn, currentGuess, guesses } = useSelector(state => ({
+    turn: state.gameData.turn,
     currentGuess: state.gameData.currentGuess,
+    
     guesses: state.gameData.guesses,
   }));
+  console.log(turn);
   // 리덕스에서 상태의 변화가 서로에게 미치는 영향...
   // 분리해서 추출해야되나?
 
@@ -51,7 +54,7 @@ const WordleGame = () => {
       <span>!!!!!!</span>
       <WordleGameWrapper>
         solution: {randomSolution}
-        <Wordle guesses={guesses} />
+        <Wordle guesses={guesses} currentGuess={currentGuess} turn={turn} />
         {alertType && (
           <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
         )}

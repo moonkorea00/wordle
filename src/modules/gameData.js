@@ -1,15 +1,15 @@
-// state
 const createGuessArr = () => {
   return [...Array(6)].map(() => {
     return [...Array(5)].map(() => {
-      return { ...Object(5) };
+      return { ...Object };
     });
   });
 };
+
+// state
 const initialState = {
   turn: 0,
   currentGuess: '',
-  // guesses: [...Array(6)],
   guesses: createGuessArr(),
   submittedGuess: [],
   alertType: '',
@@ -23,17 +23,12 @@ const SUBMIT_CURRENT_GUESS = 'SUBMIT_CURRENT_GUESS';
 const ALERT_SAME_GUESS = 'ALERT_SAME_GUESS';
 const ALERT_CHECK_GUESS = 'ALERT_CHECK_GUESS';
 const ALERT_GAME_OVER = 'ALERT_GAME_OVER';
+const CLOSE_MODAL = 'CLOSE_MODAL';
 
 const GUESS_CORRECT = 'GUESS_CORRECT';
 const RESET_GAME = 'RESET_GAME';
-// action 생성 함수
-export const resetGame = dispatch => () => {
-  {
-    console.log('reset');
-    return dispatch({ type: RESET_GAME });
-  }
-};
 
+// action 생성 함수
 export const handleKeyup =
   (dispatch, getState) =>
   ({ key }) => {
@@ -45,14 +40,8 @@ export const handleKeyup =
     if (key === 'Enter') {
       if (currentGuess === solution) {
         console.log('good job');
+        dispatch({ type: SUBMIT_CURRENT_GUESS, solution });
         dispatch({ type: GUESS_CORRECT, alert: 'guessCorrect' });
-        return;
-      }
-      if (turn > 5) {
-        // game over, play again, solution 모달 출력
-        console.log('GAME OVER');
-        dispatch({ type: ALERT_GAME_OVER, alert: 'gameOver' });
-        // dispatch reset action
         return;
       }
       if (submittedGuess.includes(currentGuess)) {
@@ -70,6 +59,10 @@ export const handleKeyup =
         console.log('submitted');
         // submit guess
         dispatch({ type: SUBMIT_CURRENT_GUESS, solution });
+        if (turn === 5) {
+          console.log('GAME OVER');
+          dispatch({ type: ALERT_GAME_OVER, alert: 'gameOver' });
+        }
       }
     }
     if (key === 'Backspace') {
@@ -85,6 +78,16 @@ export const handleKeyup =
     }
   };
 
+export const resetGame = dispatch => () => {
+  console.log('reset');
+  return dispatch({ type: RESET_GAME });
+};
+
+export const closeModal = dispatch => () => {
+  console.log('modal closed');
+  return dispatch({ type: CLOSE_MODAL });
+};
+
 // reducer
 export const gameData = (state = initialState, action) => {
   const formatGuess = () => {
@@ -96,7 +99,7 @@ export const gameData = (state = initialState, action) => {
         const solutionArr = action.solution.split('');
 
         if (guessArr[idx] === solutionArr[idx]) {
-          return { key: `${guessArr[idx]}`, color: 'green' };
+          return { key: guessArr[idx], color: 'green' };
         }
         if (!solutionArr.includes(guessArr[idx])) {
           return { key: guessArr[idx], color: 'grey' };
@@ -155,7 +158,13 @@ export const gameData = (state = initialState, action) => {
     case GUESS_CORRECT:
       return {
         ...state,
+
         alertType: action.alert,
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        altertType: '',
       };
     case RESET_GAME: {
       return initialState;
