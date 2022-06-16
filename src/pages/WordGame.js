@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fetchSolutions } from '../modules/solutions';
+import { fetchSolutions, showHint } from '../modules/solutions';
 import { handleKeyup } from '../modules/gameData';
 import { resetGame } from '../modules/gameData';
 import Wordle from '../components/Word';
@@ -8,33 +8,34 @@ import Error from '../components/Error';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useEffect } from 'react';
 import { API } from '../config';
-import { modal } from '../components/Modal';
+import { modal, Overlay } from '../components/Modal/Modal';
+
 const WordleGame = () => {
-  const { loading, error, randomSolution, alertType } = useSelector(
+  const { loading, error, alertType, hint,randomSolution } = useSelector(
     state => ({
       loading: state.solutions.solutions.loading,
       error: state.solutions.solutions.error,
       randomSolution: state.solutions.solution,
       alertType: state.gameData.alertType,
+      hint: state.solutions.hint,
     }),
     shallowEqual
   );
   const { turn, currentGuess, guesses } = useSelector(state => ({
     turn: state.gameData.turn,
     currentGuess: state.gameData.currentGuess,
-    
     guesses: state.gameData.guesses,
   }));
-  console.log(turn);
+
   // 리덕스에서 상태의 변화가 서로에게 미치는 영향...
   // 분리해서 추출해야되나?
 
   const dispatch = useDispatch();
-
+  console.log(`1`);
   useEffect(() => {
     dispatch(fetchSolutions(`${API.solutions}`));
   }, [dispatch]);
-
+  console.log(`2`);
   useEffect(() => {
     window.addEventListener('keyup', dispatch(handleKeyup));
     return () => window.removeEventListener('keyup', dispatch(handleKeyup));
@@ -51,19 +52,32 @@ const WordleGame = () => {
 
   return (
     <>
-      <span>!!!!!!</span>
+      <Hint onClick={() => alert(`단어 하나 드리겠습니다...${hint}`)}>
+        Hint
+      </Hint>
       <WordleGameWrapper>
-        solution: {randomSolution}
+        <div>solution: {randomSolution}</div>
+
         <Wordle guesses={guesses} currentGuess={currentGuess} turn={turn} />
         {alertType && (
-          <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
+          <Overlay>{modal[alertType]}</Overlay>
+          // <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
         )}
       </WordleGameWrapper>
     </>
   );
 };
 
+const Hint = styled.div`
+  ${({ theme }) => theme.common.flexCenter}
+  /* margin: 20px 0 0 */
+width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  cursor: pointer;
+`;
+
 const WordleGameWrapper = styled.main`
-  ${({ theme }) => theme.common.flexColumn}
+  ${({ theme }) => theme.common.flexCenter}/* margin-top: 6.5vh; */
 `;
 export default WordleGame;

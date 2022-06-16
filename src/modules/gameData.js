@@ -158,13 +158,12 @@ export const gameData = (state = initialState, action) => {
     case GUESS_CORRECT:
       return {
         ...state,
-
         alertType: action.alert,
       };
     case CLOSE_MODAL:
       return {
         ...state,
-        altertType: '',
+        alertType: '',
       };
     case RESET_GAME: {
       return initialState;
