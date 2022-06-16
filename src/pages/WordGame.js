@@ -8,10 +8,10 @@ import Error from '../components/Error';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useEffect } from 'react';
 import { API } from '../config';
-import { modal, Overlay } from '../components/Modal/Modal';
+import Modal from '../components/Modal/Modal';
 
 const WordleGame = () => {
-  const { loading, error, alertType, hint,randomSolution } = useSelector(
+  const { loading, error, alertType, hint, randomSolution } = useSelector(
     state => ({
       loading: state.solutions.solutions.loading,
       error: state.solutions.solutions.error,
@@ -29,13 +29,13 @@ const WordleGame = () => {
 
   // 리덕스에서 상태의 변화가 서로에게 미치는 영향...
   // 분리해서 추출해야되나?
-
+// console.log(turn)
   const dispatch = useDispatch();
-  console.log(`1`);
+  
   useEffect(() => {
     dispatch(fetchSolutions(`${API.solutions}`));
   }, [dispatch]);
-  console.log(`2`);
+  
   useEffect(() => {
     window.addEventListener('keyup', dispatch(handleKeyup));
     return () => window.removeEventListener('keyup', dispatch(handleKeyup));
@@ -60,7 +60,7 @@ const WordleGame = () => {
 
         <Wordle guesses={guesses} currentGuess={currentGuess} turn={turn} />
         {alertType && (
-          <Overlay>{modal[alertType]}</Overlay>
+          <Modal alertType={alertType} turn={turn}/>
           // <div onClick={dispatch(resetGame)}>{modal[alertType]}</div>
         )}
       </WordleGameWrapper>

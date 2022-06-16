@@ -13,6 +13,7 @@ const initialState = {
   guesses: createGuessArr(),
   submittedGuess: [],
   alertType: '',
+  isGameFinished: false,
 };
 
 // action
@@ -36,7 +37,11 @@ export const handleKeyup =
       gameData,
       solutions: { solution },
     } = getState();
-    const { turn, currentGuess, submittedGuess } = gameData;
+    const { turn, currentGuess, submittedGuess, isGameFinished } = gameData;
+    if (isGameFinished) {
+      console.log('finished')
+      return;
+    }
     if (key === 'Enter') {
       if (currentGuess === solution) {
         console.log('good job');
@@ -78,7 +83,7 @@ export const handleKeyup =
     }
   };
 
-export const resetGame = dispatch => () => {
+export const resetGame = () => (dispatch) => {
   console.log('reset');
   return dispatch({ type: RESET_GAME });
 };
@@ -154,11 +159,13 @@ export const gameData = (state = initialState, action) => {
       return {
         ...state,
         alertType: action.alert,
+        isGameFinished: true,
       };
     case GUESS_CORRECT:
       return {
         ...state,
         alertType: action.alert,
+        isGameFinished: true,
       };
     case CLOSE_MODAL:
       return {
